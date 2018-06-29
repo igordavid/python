@@ -1,0 +1,13 @@
+$def with (required_time,number_of_instances,all_instance_details)
+<br><br>
+Chosen time: $required_time minutes
+<br><br>
+Number of instances: $number_of_instances
+<br><br>
+The following instances has been started:
+<br>
+$for i in all_instance_details:
+    $i['Reservations'][0]['Instances'][0]['NetworkInterfaces'][0]['PrivateIpAddress']
+<br>
+<br><br>
+<a href="https://localhost:8080">back</a>

@@ -1,0 +1,29 @@
+$def with (current_time,form,form2,form4)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to ORCA - tool for starting EC2 instances which will be automatically stopped </title>
+</head>
+Current time in UTC: $current_time
+<br><br>
+<br><br>
+<br>
+<br>
+Please choose desired Spot price, Required time and the desired Number of instances.
+<br>
+Instances will be started and then automatically terminated after Required time.
+<br>
+Instance type: <b>m3.large</b>
+<br>
+<br>
+<form name="main" method="post">
+    $if not form.valid: <p class="error"> Try again </p>
+    $:form.render()
+    $:form2.render()
+    $:form4.render()
+    <input type="hidden" name="csrf_token" value="$csrf_token()"/>
+    <input type="submit" description="Launch instances!"/>
+</form>
+<p align="center"> <img src='/static/orca.png' align='middle'> </p>
+</body>
+</html>

@@ -9,18 +9,13 @@
 # .. and then use it in this script
 
 
-from boto import ec2
 from tabulate import tabulate
+import boto3
 
-account = raw_input ("which account?")
-region = raw_input ("which region?")
-
-print "Chosen account: %s" % account
-
-conn = ec2.connect_to_region(region,profile_name=account)
+conn = boto3.client('ec2')
 
 # reservation list:
-reservations = conn.get_all_instances()
+reservations = conn.describe_instances()
 
 # security group list
 sg_array = []
@@ -30,10 +25,10 @@ sg_array = []
 ins_sg = {}
 
 # go through instance list:
-for i in reservations:
+for i in reservations['Reservations']:
 
 # check how many SGs are attached to instance
-    group_nums = len(i.instances[0].groups)
+    group_nums = len(i.Instances[0].[SecurityGroups])
     print "######################\n"
     print "InstanceID: %s\n" % i.instances[0]
     print "Number of SGs attached: %s\n" % group_nums
